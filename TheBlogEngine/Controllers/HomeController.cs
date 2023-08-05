@@ -15,10 +15,22 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        var post = new BlogPost()
+        {
+            Author = "Joh Doe",
+            Content = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.",
+            PublishedDate = DateTime.Now
+
+        };
         return View();
     }
 
     public IActionResult Privacy()
+    {
+        return View();
+    }
+
+    public IActionResult CreateBlog()
     {
         return View();
     }

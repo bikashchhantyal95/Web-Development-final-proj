@@ -16,3 +16,10 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.blog-card .details,
+.blog-card .details ul {
+    margin: auto;
+    padding: 0;
+    list-style: none;
+}
