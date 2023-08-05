@@ -1,24 +1,40 @@
-﻿@{
+﻿@model List<BlogPost>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
+@foreach (var blog in Model)
+    {
 
 <div class="container">
     <div class="blog-card card">
         <div class="card-body">
             <div class="left">
-                <h1 class="card-title">Learning to Code</h1>
+                <h1 class="card-title">@blog.Title</h1>
                 <div class="blog-meta">
                     <span>Author</span>
-                    <span>Date</span>
-                    <span>Tags</span>
+                    <span>@blog.PublishedDate</span>
                 </div>
-                <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
+                <p class="card-text">@TrimContent(blog.Content)</p>
                 <p class="read-more">
-                    <a href="#" class="card-link">Read More</a>
+                    <a href="@Url.Action("BlogDetails", new {id = blog.Id})" class="card-link">Read More</a>
                 </p>
             </div> 
         </div>
     </div>
 </div>
+    }
 
+
+@functions {
+    private string TrimContent(string content)
+{
+        int maxlength = 100;
+        if(content.Length > maxlength)
+    {
+            return content.Substring(0, maxlength) + "...";
+    }
+        return content;
+}
+}

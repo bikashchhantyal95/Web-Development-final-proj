@@ -6,6 +6,26 @@ namespace TheBlogEngine.Controllers;
 
 public class HomeController : Controller
 {
+
+    //list of Blogpist
+    List<BlogPost> blogs = new List<BlogPost> {
+            new BlogPost{
+                Id = 1,
+                Author = "John Doe",
+                Title = "Getting Started with Artificial Intelligence",
+                Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                PublishedDate = DateTime.Now
+            },
+            new BlogPost
+            {
+                Id = 2,
+                Author = "John Doe",
+                Title = "My First Journal",
+                Content = "In the vast expanse of the universe, space exploration has captivated the minds of humanity for centuries.",
+                PublishedDate = DateTime.Now
+            }
+        };
+
     private readonly ILogger<HomeController> _logger;
 
     public HomeController(ILogger<HomeController> logger)
@@ -15,14 +35,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var post = new BlogPost()
-        {
-            Author = "Joh Doe",
-            Content = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.",
-            PublishedDate = DateTime.Now
-
-        };
-        return View();
+        return View(blogs);
     }
 
     public IActionResult Privacy()
@@ -33,6 +46,16 @@ public class HomeController : Controller
     public IActionResult CreateBlog()
     {
         return View();
+    }
+
+    public IActionResult BlogDetails(int id)
+    {
+        var blogPost = blogs.FirstOrDefault(blog => blog.Id == id);
+        if(blogPost == null)
+        {
+            return NotFound();
+        }
+        return View(blogPost);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
