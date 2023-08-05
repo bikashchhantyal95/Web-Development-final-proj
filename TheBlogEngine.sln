@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBlogEngine", "TheBlogEng
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBlogEngine.integrationsTests", "TheBlogEngine.integrationsTests\TheBlogEngine.integrationsTests.csproj", "{8BD443E3-65A8-404A-AF37-B4A078CF3444}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBlogEngine.UnitTests", "TheBlogEngine.UnitTests\TheBlogEngine.UnitTests.csproj", "{098F4751-7F9E-4AE3-BBFD-3BC7A4E7CA43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBlogEngine.Shared", "TheBlogEngine.Shared\TheBlogEngine.Shared.csproj", "{C8475CC2-EA7E-421E-B24D-E907EA1C2FD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{8BD443E3-65A8-404A-AF37-B4A078CF3444}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BD443E3-65A8-404A-AF37-B4A078CF3444}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BD443E3-65A8-404A-AF37-B4A078CF3444}.Release|Any CPU.Build.0 = Release|Any CPU
+		{098F4751-7F9E-4AE3-BBFD-3BC7A4E7CA43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{098F4751-7F9E-4AE3-BBFD-3BC7A4E7CA43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{098F4751-7F9E-4AE3-BBFD-3BC7A4E7CA43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{098F4751-7F9E-4AE3-BBFD-3BC7A4E7CA43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8475CC2-EA7E-421E-B24D-E907EA1C2FD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8475CC2-EA7E-421E-B24D-E907EA1C2FD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8475CC2-EA7E-421E-B24D-E907EA1C2FD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8475CC2-EA7E-421E-B24D-E907EA1C2FD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
