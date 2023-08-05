@@ -39,9 +39,20 @@ public class TheBlogEngineTests
 
         // Assert
         Assert.IsTrue(_webDriver?.Url.Contains("/Home/BlogDetails/"));
-        
     }
 
+    [TestMethod]
+    public void HomePage_ShouldContainBlogCards()
+    {
+        // Arrange
+        _webDriver?.Navigate().GoToUrl(BaseUrl);
+
+        // Act
+        var blogCards = _webDriver?.FindElements(By.ClassName("blog-card"));
+
+        // Assert
+        Assert.IsTrue(blogCards is { Count: > 0 });
+    }
 
     [TestCleanup]
     public void TearDown()
