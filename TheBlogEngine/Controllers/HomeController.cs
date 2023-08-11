@@ -7,7 +7,7 @@ namespace TheBlogEngine.Controllers;
 public class HomeController : Controller
 {
 
-    //list of Blogpist
+    //list of Blogpost
     List<BlogPost> blogs = new List<BlogPost> {
             new BlogPost{
                 Id = 1,
