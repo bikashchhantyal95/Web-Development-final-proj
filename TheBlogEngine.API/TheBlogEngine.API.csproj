@@ -7,7 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.21" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.21" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.21">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TheBlogEngine.Shared\TheBlogEngine.Shared.csproj" />
+      <ProjectReference Include="..\TheBlogEngine\TheBlogEngine.csproj" />
     </ItemGroup>
 
 </Project>

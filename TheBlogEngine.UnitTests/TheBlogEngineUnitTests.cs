@@ -1,10 +1,13 @@
-﻿using TheBlogEngine.Shared;
+﻿
+using TheBlogEngine.Shared;
 
 namespace TheBlogEngine.UnitTests;
 
 [TestClass]
 public class UnitTest1
 {
+    
+    
     [TestMethod]
     public void TestMethod1()
     {
@@ -28,4 +31,6 @@ public class UnitTest1
         Assert.AreEqual(new DateTime(2023, 8, 4), blog.PublishedDate);
         Assert.AreEqual("This is the sample blog content.", blog.Content);
     }
+    
+    
 }
