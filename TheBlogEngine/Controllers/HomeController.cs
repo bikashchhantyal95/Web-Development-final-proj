@@ -56,6 +56,7 @@ public class HomeController : Controller
 
     public IActionResult EditBlog()
     {
+        // Return Edit form
         return View();
     }
     
