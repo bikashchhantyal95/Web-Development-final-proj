@@ -9,5 +9,5 @@ public class BlogDbContext: DbContext
     {
     }
 
-    public DbSet<Blog> BlogList => Set<Blog>();
+    public DbSet<Blog?> BlogList => Set<Blog>();
 }

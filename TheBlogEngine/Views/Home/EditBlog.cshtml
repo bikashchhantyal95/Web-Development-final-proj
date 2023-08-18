@@ -1,16 +1,13 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @model TheBlogEngine.Shared.Blog
-@{
-   ViewData["Title"] = "Create Blog";
-}
 
+@{
+    Layout = null;
+}
 
 <form asp-action="CreateBlog">
     <div class="mb-3">
         <label for="blogTitle" class="form-label" asp-for="Title">Title</label>
-        <input type="text" class="form-control" id="blogTitleInput" placeholder="Enter Title of Blog" asp-for="Title" />
+        <input type="text" class="form-control" id="blogTitleInput" asp-for="Title" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="mb-3">
@@ -22,3 +19,4 @@
     
     <button type="submit" class="btn btn-primary">Post</button>
 </form>
+

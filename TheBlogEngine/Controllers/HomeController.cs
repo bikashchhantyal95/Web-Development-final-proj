@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using TheBlogEngine.Models;
+using TheBlogEngine.Shared;
 
 namespace TheBlogEngine.Controllers;
 
@@ -52,6 +53,12 @@ public class HomeController : Controller
     {
         return View();
     }
+
+    public IActionResult EditBlog()
+    {
+        return View();
+    }
+    
 
     public IActionResult BlogDetails(int id)
     {

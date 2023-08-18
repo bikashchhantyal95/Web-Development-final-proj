@@ -10,111 +10,133 @@ namespace TheBlogEngine.API.Controllers
     [ApiController]
     public class BlogPostController : ControllerBase
     {
-        private readonly BlogDbContext _context;
+        private readonly IBlogRepository _blogRepository;
 
-        public BlogPostController(BlogDbContext context)
+        public BlogPostController(IBlogRepository blogRepository)
         {
-            _context = context;
+            this._blogRepository = blogRepository;
         }
 
         // GET: api/BlogPost
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Blog>>> GetBlogList()
         {
-          if (_context.BlogList == null)
-          {
-              return NotFound();
-          }
-            return await _context.BlogList.ToListAsync();
-        }
-
-        // GET: api/BlogPost/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Blog>> GetBlog(int id)
-        {
-          if (_context.BlogList == null)
-          {
-              return NotFound();
-          }
-            var blog = await _context.BlogList.FindAsync(id);
-
-            if (blog == null)
-            {
-                return NotFound();
-            }
-
-            return blog;
-        }
-
-        // PUT: api/BlogPost/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBlog(int id, Blog blog)
-        {
-            if (id != blog.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(blog).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BlogExists(id))
+                var result = await _blogRepository.GetBlogs();
+                if (result.Any())
                 {
-                    return NotFound();
+                    return Ok(result);
                 }
                 else
                 {
-                    throw;
+                    return NotFound(); //Return NotFoundResult if no blogs are found
                 }
             }
-
-            return NoContent();
-        }
-
-        // POST: api/BlogPost
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Blog>> PostBlog(Blog blog)
-        {
-          if (_context.BlogList == null)
-          {
-              return Problem("Entity set 'BlogDbContext.BlogList'  is null.");
-          }
-            _context.BlogList.Add(blog);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetBlog", new { id = blog.Id }, blog);
-        }
-
-        // DELETE: api/BlogPost/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBlog(int id)
-        {
-            if (_context.BlogList == null)
+            catch(Exception)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            var blog = await _context.BlogList.FindAsync(id);
+        }
+    
+    // GET: api/BlogPost/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Blog>> GetBlog(int id)
+    {
+      // if (_context.BlogList == null)
+      // {
+      //     return NotFound();
+      // }
+      // var blog = await _context.BlogList.FindAsync(id);
+      //
+      // if (blog == null)
+      // {
+      //     return NotFound();
+      // }
+      //
+      // return blog;
+      try
+      {
+          var result = await _blogRepository.GetBlogById(id);
+          if (result == null) return NotFound();
+          return Ok(result);
+      }
+      catch(Exception)
+      {
+          return StatusCode(StatusCodes.Status500InternalServerError,
+              "Error retrieving data from database.");
+      }
+      
+    }
+    
+    // PUT: api/BlogPost/5
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult<Blog>> PutBlog(int id, Blog blog)
+    {
+        try
+        {
+            if (id != blog.Id)
+            {
+                return BadRequest("Blog ID mismatch.");
+            }
+
+            var blogExists = await _blogRepository.BlogExists(id);
+            if (!blogExists)
+            {
+                return NotFound($"Blog with Id {id} not found");
+            }
+            return await _blogRepository.UpdateBlog(blog);
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data");
+        }
+    }
+    
+    // POST: api/BlogPost
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPost]
+    public async Task<ActionResult<Blog>> PostBlog(Blog blog)
+    {
+        try
+        {
             if (blog == null)
             {
-                return NotFound();
+                return Problem("Entity set 'BlogDbContext.BlogList'  is null.");
             }
 
-            _context.BlogList.Remove(blog);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            var createdBlog = await _blogRepository.AddBlog(blog);
+    
+            return CreatedAtAction("GetBlog", new { id = blog.Id }, blog);
         }
-
-        private bool BlogExists(int id)
+        catch (Exception e)
         {
-            return (_context.BlogList?.Any(e => e.Id == id)).GetValueOrDefault();
+            return StatusCode(StatusCodes.Status500InternalServerError, "Error creating  new employee.");
         }
+    }
+    
+    // DELETE: api/BlogPost/5
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> DeleteBlog(int id)
+    {
+        try
+        {
+            var blogExists = await _blogRepository.BlogExists(id);
+            if (!blogExists)
+                return NotFound($"Blog with Id {id} not found");
+            await _blogRepository.DeleteBlog(id);
+            return NoContent();
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                "Error deleting blog");
+        }
+    }
+    
+    
     }
 }

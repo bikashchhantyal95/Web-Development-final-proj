@@ -13,6 +13,7 @@ builder.Services.AddDbContext<BlogDbContext>(opt =>
 
 // builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlite(builder.Configuration.GetSection("ConnectionStrings:DbConn").Value));
 
+builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
