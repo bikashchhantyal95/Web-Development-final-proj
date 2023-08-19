@@ -2,10 +2,35 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-@model TheBlogEngine.Models.BlogPost
+@model TheBlogEngine.Shared.Blog
 
 <div>
     <h1 class="card-title">@Model.Title</h1>
     <p class="card-body">@Model.Content</p>
-    <p>By @Model.Author <span style="color:green">@Model.PublishedDate</span></p>
+    <p>By @Model.Author <span style="color:green">@GetFormattedDate(Model.PublishedDate)</span></p>
+    <a asp-action="EditBlog" asp-controller="Home" asp-action="EditBlog" asp-route-id="@Model.Id">Edit</a>
 </div>
+
+@functions {
+    public string GetFormattedDate(DateTime inputDateTime)
+    {
+
+        DateTime currentDateTime = DateTime.Now;
+
+        TimeSpan timeDifference = currentDateTime - inputDateTime;
+        int daysAgo = timeDifference.Days;
+
+        if (daysAgo == 0)
+        {
+            return "Today";
+        }
+        else if (daysAgo == 1)
+        {
+            return "Yesterday";
+        }
+        else
+        {
+            return $"{daysAgo} days ago";
+        }
+    }
+}

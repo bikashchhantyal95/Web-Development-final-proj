@@ -6,7 +6,7 @@ using TheBlogEngine.Shared;
 
 namespace TheBlogEngine.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class BlogPostController : ControllerBase
     {

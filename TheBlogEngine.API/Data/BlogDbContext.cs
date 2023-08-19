@@ -10,4 +10,6 @@ public class BlogDbContext: DbContext
     }
 
     public DbSet<Blog?> BlogList => Set<Blog>();
+
+    public DbSet<TheBlogEngine.Shared.Comment>? Comment { get; set; }
 }

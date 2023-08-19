@@ -7,7 +7,7 @@
 }
 
 
-<form asp-action="CreateBlog">
+<form asp-action="CreateBlog" method="post">
     <div class="mb-3">
         <label for="blogTitle" class="form-label" asp-for="Title">Title</label>
         <input type="text" class="form-control" id="blogTitleInput" placeholder="Enter Title of Blog" asp-for="Title" />

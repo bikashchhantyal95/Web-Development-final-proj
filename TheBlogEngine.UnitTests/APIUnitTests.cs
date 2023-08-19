@@ -1,12 +1,9 @@
 using AutoFixture;
-using FakeItEasy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using TheBlogEngine.API.Controllers;
 using TheBlogEngine.API.Data;
-using TheBlogEngine.Models;
 using TheBlogEngine.Shared;
 
 namespace TheBlogEngine.UnitTests;
@@ -50,11 +47,16 @@ namespace TheBlogEngine.UnitTests;
 
             _controller = new BlogPostController(_blogRepo.Object);
 
+            //Act
             var result = await _controller.GetBlogList();
 
-            var obj = result.Result as OkObjectResult;
+            //Assert
+            // var obj = result.Result as OkObjectResult;
             
-            Assert.AreEqual(400, obj?.StatusCode);
+            Assert.IsNotNull(result);
+            var statusCodeResult = result.Result as ObjectResult;
+            // Assert.IsNotNull(statusCodeResult, "Expected ObjectResult");
+            Assert.AreEqual(StatusCodes.Status500InternalServerError, statusCodeResult.StatusCode);
             
         }
 
@@ -114,6 +116,7 @@ namespace TheBlogEngine.UnitTests;
             Assert.AreEqual(blog.Id, returnedBlog.Id);
             Assert.AreEqual(blog.Title, returnedBlog.Title);
             Assert.AreEqual(blog.Content, returnedBlog.Content);
+            
         }
         
         

@@ -14,6 +14,8 @@ namespace TheBlogEngine.Shared
         public DateTime PublishedDate { get; set; }
         
         public string Author { get; set; }
+        
+        public ICollection<Blog> Comments { get; set; }
     }
 }
 

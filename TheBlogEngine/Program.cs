@@ -1,10 +1,22 @@
-﻿
+
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using TheBlogEngine.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
+builder.Services.AddDbContext<TheBlogEngineContext>(options =>
+
+
+    options.UseSqlite(builder.Configuration.GetConnectionString("TheBlogEngineContext") ?? throw new InvalidOperationException("Connection string 'TheBlogEngineContext' not found.")));
+
+
+builder.Services.AddHttpClient("MyApiClient", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7190/");
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

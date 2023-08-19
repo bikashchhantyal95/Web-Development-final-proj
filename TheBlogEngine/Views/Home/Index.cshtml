@@ -1,8 +1,10 @@
-﻿@model List<BlogPost>
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<TheBlogEngine.Shared.Blog>
 
 @{
     ViewData["Title"] = "Home Page";
 }
+
 
 @foreach (var blog in Model)
     {
@@ -10,14 +12,15 @@
     <div class="blog-card card">
         <div class="card-body">
             <div class="left">
-                <h1 class="card-title">@blog.Title</h1>
+                <h1 class="card-title" >@blog.Title</h1>
                 <div class="blog-meta">
                     <span>Author</span>
-                    <span>@blog.PublishedDate</span>
+                    <span>@blog.PublishedDate.ToShortDateString()</span>
                 </div>
                 <p class="card-text">@TrimContent(blog.Content)</p>
                 <p class="read-more">
-                    <a href="@Url.Action("BlogDetails", new {id = blog.Id})" class="card-link">Read More</a>
+                    <a asp-controller="Home" asp-action="BlogDetails" asp-route-id="@blog.Id">Read more</a>
+                    
                 </p>
             </div> 
         </div>
