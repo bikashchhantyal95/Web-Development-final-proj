@@ -29,7 +29,7 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var response = await _client.GetAsync("api/BlogPost/GetBlogList");
+        var response = await _client.GetAsync("api/BlogPost");
         var blogList = await response.Content.ReadFromJsonAsync<List<Blog>>();
         return View(blogList);
     }
@@ -130,7 +130,7 @@ public class HomeController : Controller
     
     public async Task<IActionResult> BlogDetails(int id)
     {
-        var response = await _client.GetAsync($"api/BlogPost/GetBlog/{id}");
+        var response = await _client.GetAsync($"api/BlogPost/{id}");
         var blogDetails = await response.Content.ReadFromJsonAsync<Blog>();
        
         if (blogDetails == null)

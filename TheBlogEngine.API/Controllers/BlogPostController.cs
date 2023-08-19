@@ -6,7 +6,7 @@ using TheBlogEngine.Shared;
 
 namespace TheBlogEngine.API.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class BlogPostController : ControllerBase
     {
@@ -43,19 +43,7 @@ namespace TheBlogEngine.API.Controllers
     [HttpGet("{id}")]
     public async Task<ActionResult<Blog>> GetBlog(int id)
     {
-      // if (_context.BlogList == null)
-      // {
-      //     return NotFound();
-      // }
-      // var blog = await _context.BlogList.FindAsync(id);
-      //
-      // if (blog == null)
-      // {
-      //     return NotFound();
-      // }
-      //
-      // return blog;
-      try
+        try
       {
           var result = await _blogRepository.GetBlogById(id);
           if (result == null) return NotFound();
